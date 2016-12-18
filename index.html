@@ -1,0 +1,20 @@
+<html>
+<head></head>
+<body>
+    <ul>
+        <li class="product">4.94</li>
+        <li class="product">5.89</li>
+        <li class="product">3.76</li>
+        <li class="newProduct">9.13</li>
+        <li id="product">7.45</li>
+    </ul>
+    <script>
+        var nodeListTypeProducts = document.querySelectorAll(".product, .newProduct, #product");
+        console.log(nodeListTypeProducts);
+        var arrayTypeProducts = Array.from(nodeListTypeProducts);
+        console.log(arrayTypeProducts);
+        arrayTypeProducts.filter(p => parseFloat(p.innerHTML) > 5).forEach(i => i.style.color = 'red');
+    </script>
+    <!-- <script src="practiceRxjs.js"></script> -->
+</body>
+</html>
