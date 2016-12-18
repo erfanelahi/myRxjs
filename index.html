@@ -1,5 +1,7 @@
 <html>
+
 <head></head>
+
 <body>
     <ul>
         <li class="product">4.94</li>
@@ -10,12 +12,14 @@
     </ul>
     <script>
         var nodeListTypeProducts = document.querySelectorAll(".product, .newProduct, #product");
-        console.log(nodeListTypeProducts);
+        //console.log(nodeListTypeProducts);
         var arrayTypeProducts = Array.from(nodeListTypeProducts);
-        console.log(arrayTypeProducts);
+        //console.log(arrayTypeProducts);
         arrayTypeProducts.filter(p => parseFloat(p.innerHTML) > 5).forEach(i => i.style.color = 'red');
     </script>
-    <script src="node_modules/rx/dist/rx.all.js"></script>
-    <script src="practiceRxjs.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+<script src="node_modules/rx/dist/rx.all.js"></script>
+<script src="practiceRxjs.js"></script>
 </body>
+
 </html>

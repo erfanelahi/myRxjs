@@ -1,4 +1,4 @@
-var Rx = require('rx');
+//var Rx = require('rx');
 
 var arr = [1, 2, 3, "hi", 7, 8, 9, "world"];
 //off
@@ -12,5 +12,7 @@ var objMerge = Rx.Observable.merge(objOf, objFrom);
 //result
 console.log("Hello Rxjs!");
 objMerge.subscribe(x => console.log(x));
-//
-var objJust = Rx.Observable.just(arr).subscribe(x => console.log(x));
+// just / flatMap / fromPromise
+var objJustFlatMap = Rx.Observable.just("https://api.github.com/users")
+.flatMap(requestURL => Rx.Observable.fromPromise(jQuery.getJSON(requestURL)))
+.subscribe(x => console.log(x));
