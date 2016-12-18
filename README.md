@@ -1,2 +1,2 @@
 # myRxjs
-Rxjs Practice. Hello World!
+Rxjs Practice.
