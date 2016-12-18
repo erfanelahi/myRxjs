@@ -1,14 +1,16 @@
-var Rx = require('rxjs/Rx');
+var Rx = require('rx');
 
 var arr = [1, 2, 3, "hi", 7, 8, 9, "world"];
-
-var objOf = Rx.Observable.of(...arr).take(10).map(x => parseInt(x))
+//off
+var objOf = Rx.Observable.of(...arr).take(3).map(x => parseInt(x))
   .filter(x => !isNaN(x)).reduce((x, y) => x+y);
-
-var objFrom = Rx.Observable.from(arr).take(10).map(x => parseInt(x))
+//from
+var objFrom = Rx.Observable.from(arr).take(5).map(x => parseInt(x))
   .filter(x => !isNaN(x)).reduce((x, y) => x*y);
-
+//merge
 var objMerge = Rx.Observable.merge(objOf, objFrom);
-
+//result
 console.log("Hello Rxjs!");
 objMerge.subscribe(x => console.log(x));
+//
+var objJust = Rx.Observable.just(arr).subscribe(x => console.log(x));
