@@ -1,10 +1,10 @@
 //var Rx = require('rx');
 var arr = ["5", 2, 3, "hi", 7, 8, 9, "world"];
 // off
-var objOf = Rx.Observable.of(...arr).skip(2).take(3).map(x => parseInt(x))
+var objOf = Rx.Observable.of(...arr).skip(2).take(6).takeLast(5).skipLast(2).map(x => parseInt(x))
     .filter(x => !isNaN(x)).reduce((x, y) => x + y);
 // from
-var objFrom = Rx.Observable.from(arr).first().map(x => parseInt(x * x))
+var objFrom = Rx.Observable.from(arr).first().last().map(x => parseInt(x * x))
     .filter(x => !isNaN(x));
 // merge
 var objMerge = Rx.Observable.merge(objOf, objFrom);
