@@ -19,7 +19,7 @@ var countClick = document.querySelector("#countClick");
 var clickResult = document.querySelector("#clickResult");
 var clickStream = Rx.Observable.fromEvent(countClick, "click");
 var evenTimeStampStream = clickStream.buffer(() => clickStream.delay(500))
-    .map(event => { console.log("Click Count : "+event.length); return event.length; }).filter(length => length === 2);
+    .map(event => event.length).do(length => console.log("Click Count : " + length)).filter(length => length === 2);
 evenTimeStampStream.subscribe(event => {
     clickResult.innerHTML = "";
     objJustFlatMap.subscribe(data =>
@@ -38,5 +38,5 @@ result.subscribe(x => console.log(x));
 
 var weight = Rx.Observable.of(70, 72, 76, 79, 75);
 var height = Rx.Observable.of(1.76, 1.77, 1.78);
-var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : "+w+" : h :"+h); return w / (h * h) });
+var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : " + w + " : h :" + h); return w / (h * h) });
 bmi.subscribe(x => console.log('BMI is ' + x));
