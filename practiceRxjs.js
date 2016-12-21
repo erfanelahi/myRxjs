@@ -42,7 +42,7 @@ var height = Rx.Observable.range(1, 3);
 var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : " + w + " : h :" + h); return w / (h * h) });
 bmi.subscribe(x => console.log('BMI is ' + x));
 // create
-var objCreate = Rx.Observable.create(function (s) {
+var objCreate = Rx.Observable.create(s => {
     s.next("Hello");
     s.next(Math.random());
     //s.error("Error!!!");
