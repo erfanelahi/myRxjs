@@ -1,9 +1,9 @@
 //var Rx = require('rx');
 var arr = ["5", 2, 3, "hi", 7, 8, 9, "world"];
-// off
+// of / skip / take / skipLast / takeLast / map / filter / reduce
 var objOf = Rx.Observable.of(...arr).skip(2).take(6).takeLast(5).skipLast(2).map(x => parseInt(x))
     .filter(x => !isNaN(x)).reduce((x, y) => x + y);
-// from
+// from / first / last
 var objFrom = Rx.Observable.from(arr).first().last().map(x => parseInt(x * x))
     .filter(x => !isNaN(x));
 // merge
@@ -14,7 +14,7 @@ objMerge.subscribe(x => console.log(x));
 // just / flatMap / fromPromise
 var objJustFlatMap = Rx.Observable.just("https://api.github.com/users")
     .flatMap(requestURL => Rx.Observable.fromPromise(jQuery.getJSON(requestURL)))
-// buffer / delay
+// fromEvent / buffer / delay / do
 var countClick = document.querySelector("#countClick");
 var clickResult = document.querySelector("#clickResult");
 var clickStream = Rx.Observable.fromEvent(countClick, "click");
@@ -29,14 +29,15 @@ evenTimeStampStream.subscribe(event => {
             <a style="float:laft" target="_blank" href="${item.html_url}">${item.login}</a>
         </div>`))
 })
-
+// concat
 var timer1 = Rx.Observable.interval(2000).take(2);
 var timer2 = Rx.Observable.interval(1000).take(3);
 var timer3 = Rx.Observable.interval(500).take(4);
 var result = timer1.concat(timer2, timer3);
 result.subscribe(x => console.log(x));
-
+// combineLatest
 var weight = Rx.Observable.of(70, 72, 76, 79, 75);
 var height = Rx.Observable.of(1.76, 1.77, 1.78);
 var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : " + w + " : h :" + h); return w / (h * h) });
 bmi.subscribe(x => console.log('BMI is ' + x));
+
