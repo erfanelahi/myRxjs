@@ -41,3 +41,12 @@ var weight = Rx.Observable.of(70, 72, 76, 79, 75);
 var height = Rx.Observable.range(1, 3);
 var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : " + w + " : h :" + h); return w / (h * h) });
 bmi.subscribe(x => console.log('BMI is ' + x));
+// create
+var objCreate = Rx.Observable.create(function (s) {
+    s.next("Hello");
+    s.next(Math.random());
+    //s.error("Error!!!");
+    s.next(s);
+    s.completed();
+});
+objCreate.subscribe(n => console.log(n), e => console.error(e), () => console.log("World!"));
