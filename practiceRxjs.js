@@ -45,7 +45,7 @@ bmi.subscribe(x => console.log('BMI is ' + x));
 var objCreate = Rx.Observable.create(s => {
     s.next("Hello");
     s.next(Math.random());
-    //s.error("Error!!!");
+    /*s.error("Error!!!");*/
     s.next(s);
     s.completed();
 });
