@@ -34,7 +34,7 @@ var timer1 = Rx.Observable.interval(2000).take(2);
 var timer2 = Rx.Observable.interval(1000).take(3);
 var timer3 = Rx.Observable.interval(500).take(4);
 var timer4 = Rx.Observable.interval(1000);
-var result = timer1.concat(timer2, timer3).withLatestFrom(timer4);
+var result = timer2.concat(timer1, timer3).withLatestFrom(timer4);
 result.subscribe(x => console.log(x));
 // range / combineLatest 
 var weight = Rx.Observable.of(70, 72, 76, 79, 75);
