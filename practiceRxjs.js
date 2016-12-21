@@ -6,9 +6,8 @@ var objOf = Rx.Observable.of(...arr).skip(2).take(6).takeLast(5).skipLast(2).map
 // from / first / last
 var objFrom = Rx.Observable.from(arr).first().last().map(x => parseInt(x * x))
     .filter(x => !isNaN(x));
-// merge
-var objMerge = Rx.Observable.merge(objOf, objFrom);
-//
+// merge / startWith
+var objMerge = Rx.Observable.merge(objOf, objFrom).startWith(">>> Begin <<<");
 console.log("Hello Rxjs!");
 objMerge.subscribe(x => console.log(x));
 // just / flatMap / fromPromise
@@ -50,7 +49,7 @@ var objCreate = Rx.Observable.create(s => {
     s.completed();
 });
 objCreate.subscribe(n => console.log(n), e => console.error(e), () => console.log("World!"));
-// defer / empty / startWith
+// defer / empty
 var clicksOrInterval = Rx.Observable.defer(() => {
     if (Math.random() > 0.5) {
         return Rx.Observable.fromEvent(countClick, 'click');
