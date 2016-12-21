@@ -50,3 +50,12 @@ var objCreate = Rx.Observable.create(s => {
     s.completed();
 });
 objCreate.subscribe(n => console.log(n), e => console.error(e), () => console.log("World!"));
+// defer / empty / startWith
+var clicksOrInterval = Rx.Observable.defer(() => {
+    if (Math.random() > 0.5) {
+        return Rx.Observable.fromEvent(countClick, 'click');
+    } else {
+        return Rx.Observable.empty().startWith(720);
+    }
+});
+clicksOrInterval.subscribe(x => x !== 720 ? console.log(x) : console.log(`clicksOrInterval : ${x}`));
