@@ -29,7 +29,7 @@ evenTimeStampStream.subscribe(event => {
             <a style="float:laft" target="_blank" href="${item.html_url}">${item.login}</a>
         </div>`))
 })
-// concat
+// concat / withLatestFrom
 var timer1 = Rx.Observable.interval(2000).take(2);
 var timer2 = Rx.Observable.interval(1000).take(3);
 var timer3 = Rx.Observable.interval(500).take(4);
