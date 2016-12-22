@@ -37,7 +37,7 @@ var result = timer2.concat(timer3, timer1).withLatestFrom(timer4, (t123, t4) => 
 result.subscribe(x => console.log(x));
 // range / combineLatest 
 var weight = Rx.Observable.of(70, 72, 76, 79, 75);
-var height = Rx.Observable.range(1, 3);
+var height = Rx.Observable.range(5, 3);
 var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => { console.log("w : " + w + " : h :" + h); return w / (h * h) });
 bmi.subscribe(x => console.log('BMI is ' + x));
 // create
