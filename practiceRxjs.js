@@ -58,8 +58,8 @@ var clicksOrInterval = Rx.Observable.defer(() => {
     }
 });
 clicksOrInterval.subscribe(x => x !== 720 ? console.log(x) : console.log(`clicksOrInterval : ${x}`));
-// mergeMap
-var result = Rx.Observable.interval(3000).take(4).mergeMap(x =>
+// timer / mergeMap
+var result = Rx.Observable.timer(10000, 1000).take(4).mergeMap(x =>
     x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.empty().startWith("Empty")
 );
 result.subscribe(x => console.log(x));
