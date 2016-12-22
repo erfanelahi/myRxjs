@@ -49,15 +49,15 @@ var objCreate = Rx.Observable.create(s => {
     s.completed();
 });
 objCreate.subscribe(n => console.log(n), e => console.error(e), () => console.log("World!"));
-// defer / empty
+// defer / throw / empty
 var clicksOrInterval = Rx.Observable.defer(() => {
     if (Math.random() > 0.5) {
-        return Rx.Observable.fromEvent(countClick, 'click');
+        return Rx.Observable.throw('oops!');
     } else {
         return Rx.Observable.empty().startWith(720);
     }
 });
-clicksOrInterval.subscribe(x => x !== 720 ? console.log(x) : console.log(`clicksOrInterval : ${x}`));
+clicksOrInterval.subscribe(x => console.log(`clicksOrInterval : ${x}`), error => console.error(error));
 // timer / mergeMap / never
 var result = Rx.Observable.timer(10000, 1000).take(4).mergeMap(x =>
     x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.never().startWith("Empty")
