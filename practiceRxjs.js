@@ -63,7 +63,7 @@ var result = Rx.Observable.interval(3000).take(4).mergeMap(x =>
     x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.empty().startWith("Empty")
 );
 result.subscribe(x => console.log(x));
-// fromEventPattern / dispose
+// fromEventPattern / dispose / Promise
 function addClickHandler(handler) {
     document.addEventListener('click', handler);
 }
