@@ -6,7 +6,7 @@ var objOf = Rx.Observable.of(...arr).skip(2).take(6).takeLast(5).skipLast(2).map
 // from / first / last
 var objFrom = Rx.Observable.from(arr).first().last().map(x => parseInt(x * x))
     .filter(x => !isNaN(x));
-// merge / startWith
+// merge / startWith / subscribe
 var objMerge = Rx.Observable.merge(objOf, objFrom).startWith(">>> Begin <<<");
 console.log("Hello Rxjs!");
 objMerge.subscribe(x => console.log(x));
@@ -63,7 +63,7 @@ var result = Rx.Observable.interval(3000).take(4).mergeMap(x =>
     x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.empty().startWith("Empty")
 );
 result.subscribe(x => console.log(x));
-// fromEventPattern
+// fromEventPattern / dispose
 function addClickHandler(handler) {
     document.addEventListener('click', handler);
 }
@@ -74,4 +74,5 @@ var domClicks = Rx.Observable.fromEventPattern(
     addClickHandler,
     removeClickHandler
 );
-domClicks.subscribe(mouseEvent => alert("X : " + mouseEvent.x + ", Y : " + mouseEvent.y));
+var subscription = domClicks.subscribe(mouseEvent => alert("X : " + mouseEvent.x + ", Y : " + mouseEvent.y));
+clickStream.subscribe(e => this.subscription.dispose());
