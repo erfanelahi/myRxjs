@@ -52,7 +52,7 @@ objCreate.subscribe(n => console.log(n), e => console.error(e), () => console.lo
 // defer / throw / empty
 var clicksOrInterval = Rx.Observable.defer(() => {
     if (Math.random() > 0.5) {
-        return Rx.Observable.throw('oops!');
+        return Rx.Observable.throw('oops! :-)');
     } else {
         return Rx.Observable.empty().startWith(720);
     }
