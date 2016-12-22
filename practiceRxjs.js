@@ -75,4 +75,13 @@ var domClicks = Rx.Observable.fromEventPattern(
     removeClickHandler
 );
 var subscription = domClicks.subscribe(mouseEvent => alert("X : " + mouseEvent.x + ", Y : " + mouseEvent.y));
-clickStream.subscribe(e => this.subscription.dispose());
+var promise = new Promise(
+    function (resolve, reject) {
+        resolve("Dom click event has been disabled.");
+        reject("Dom click event error.");
+    }
+);
+clickStream.subscribe(e => {
+    this.subscription.dispose();
+    Rx.Observable.fromPromise(promise).subscribe(resolve => console.log(resolve), reject => console.error(reject));
+});
