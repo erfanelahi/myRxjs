@@ -28,7 +28,7 @@ evenTimeStampStream.subscribe(event => {
             <a style="float:laft" target="_blank" href="${item.html_url}">${item.login}</a>
         </div>`))
 })
-// concat / withLatestFrom
+// interval / concat / withLatestFrom
 var timer1 = Rx.Observable.interval(2000).take(2);
 var timer2 = Rx.Observable.interval(1000).take(3);
 var timer3 = Rx.Observable.interval(500).take(4);
@@ -58,3 +58,8 @@ var clicksOrInterval = Rx.Observable.defer(() => {
     }
 });
 clicksOrInterval.subscribe(x => x !== 720 ? console.log(x) : console.log(`clicksOrInterval : ${x}`));
+// mergeMap
+var result = Rx.Observable.interval(3000).take(4).mergeMap(x =>
+  x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.empty().startWith("Empty")
+);
+result.subscribe(x => console.log(x));
