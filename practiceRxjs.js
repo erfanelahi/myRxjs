@@ -15,7 +15,7 @@ var objJustFlatMap = Rx.Observable.just("https://api.github.com/users")
     .flatMap(requestURL => Rx.Observable.fromPromise(jQuery.getJSON(requestURL)))
 // fromEvent / buffer / delay / do
 var countClick = document.querySelector("#countClick");
-var clickResult = document.querySelector("#clickResult");
+var clickResult = document.querySelector("#countClickResult");
 var clickStream = Rx.Observable.fromEvent(countClick, "click");
 var evenTimeStampStream = clickStream.buffer(() => clickStream.delay(500))
     .map(event => event.length).do(length => console.log("Click Count : " + length)).filter(length => length === 2);
@@ -85,7 +85,12 @@ clickStream.subscribe(e => {
     this.subscription.dispose();
     Rx.Observable.fromPromise(promise).subscribe(resolve => console.log(resolve), reject => console.error(reject));
 });
-// test
-var items1 = Rx.Observable.range(1, 10);
-var items2 = items1.map(i => i*100 );
-items1.withLatestFrom(items2, (i1, i2) => i1+i2).subscribe(x => console.log(x));
+// test test test
+//var items1 = Rx.Observable.range(1, 10);
+//var items2 = items1.map(i => i*100 );
+//items1.withLatestFrom(items2, (i1, i2) => i1+i2).subscribe(x => console.log(x));
+// throttle / >>> audit
+var oneClickResult = document.querySelector("#oneClickResult");
+var oneClicks = Rx.Observable.fromEvent(document.querySelector("#oneClick"), 'click');
+var result = oneClicks.throttle(3000);
+result.subscribe(x => oneClickResult.textContent = (oneClickResult.textContent==='' ? 0 : parseInt(oneClickResult.textContent)) + 1);

@@ -10,8 +10,15 @@
         <li class="newProduct">9.13</li>
         <li id="product">7.45</li>
     </ul>
-    <input type="button" value="Click Double & Get Data" id="countClick" />
-    <div id="clickResult"></div>
+    <div>
+        <input type="button" value="One Click in 3s" style="float: left" id="oneClick" />
+        <div id="oneClickResult" style="float: left; margin-left: 10px;"></div>
+    </div>
+    <br/>
+    <div>
+        <input type="button" value="Click Double & Get Data" id="countClick" />
+        <div id="countClickResult"></div>
+    </div>
     <script>
         var nodeListTypeProducts = document.querySelectorAll(".product, .newProduct, #product");
         //console.log(nodeListTypeProducts);
@@ -19,8 +26,9 @@
         //console.log(arrayTypeProducts);
         arrayTypeProducts.filter(p => parseFloat(p.innerHTML) > 5).forEach(i => i.style.color = 'red');
     </script>
-<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-<script src="node_modules/rx/dist/rx.all.js"></script>
-<script src="practiceRxjs.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="node_modules/rx/dist/rx.all.js"></script>
+    <script src="practiceRxjs.js"></script>
 </body>
+
 </html>
