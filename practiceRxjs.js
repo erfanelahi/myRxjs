@@ -33,8 +33,8 @@ var timer1 = Rx.Observable.interval(2000).take(2);
 var timer2 = Rx.Observable.interval(1000).take(3);
 var timer3 = Rx.Observable.interval(500).take(4);
 var timer4 = Rx.Observable.interval(1000);
-var result = timer2.concat(timer3, timer1).withLatestFrom(timer4, (t123, t4) => [t123, t4]);
-result.subscribe(x => console.log(x));
+var result1 = timer2.concat(timer3, timer1).withLatestFrom(timer4, (t123, t4) => [t123, t4]);
+result1.subscribe(x => console.log(x));
 // range / combineLatest 
 var weight = Rx.Observable.of(70, 72, 76, 79, 75);
 var height = Rx.Observable.range(5, 3);
@@ -59,10 +59,10 @@ var clicksOrInterval = Rx.Observable.defer(() => {
 });
 clicksOrInterval.subscribe(x => console.log(`clicksOrInterval : ${x}`), error => console.error(error));
 // timer / mergeMap / never
-var result = Rx.Observable.timer(10000, 1000).take(4).mergeMap(x =>
+var result2 = Rx.Observable.timer(10000, 1000).take(4).mergeMap(x =>
     x % 2 === 1 ? Rx.Observable.of('a', 'b', 'c') : Rx.Observable.never().startWith("Empty")
 );
-result.subscribe(x => console.log(x));
+result2.subscribe(x => console.log(x));
 // fromEventPattern / dispose / Promise
 function addClickHandler(handler) {
     document.addEventListener('click', handler);
@@ -92,5 +92,5 @@ clickStream.subscribe(e => {
 // throttle / >>> audit
 var oneClickResult = document.querySelector("#oneClickResult");
 var oneClicks = Rx.Observable.fromEvent(document.querySelector("#oneClick"), 'click');
-var result = oneClicks.throttle(3000);
-result.subscribe(x => oneClickResult.textContent = (oneClickResult.textContent==='' ? 0 : parseInt(oneClickResult.textContent)) + 1);
+var result3 = oneClicks.throttle(3000);
+result3.subscribe(x => oneClickResult.textContent = (oneClickResult.textContent==='' ? 0 : parseInt(oneClickResult.textContent)) + 1);
