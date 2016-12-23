@@ -44,7 +44,7 @@ bmi.subscribe(x => console.log('BMI is ' + x));
 var objCreate = Rx.Observable.create(s => {
     s.next("Hello");
     s.next(Math.random());
-    /*s.error("Error!!!");*/
+    //s.error("Error!!!");
     s.next(s);
     s.completed();
 });
@@ -85,3 +85,7 @@ clickStream.subscribe(e => {
     this.subscription.dispose();
     Rx.Observable.fromPromise(promise).subscribe(resolve => console.log(resolve), reject => console.error(reject));
 });
+// test
+var items1 = Rx.Observable.range(1, 10);
+var items2 = items1.map(i => i*100 );
+items1.withLatestFrom(items2, (i1, i2) => i1+i2).subscribe(x => console.log(x));
