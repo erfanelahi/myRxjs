@@ -105,5 +105,5 @@ Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 
 // bufferCount / bufferTime / delayWhen
 var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, y) => x);
 objBufferCT.delay(new Date(new Date().getTime() + 1000)).bufferCount(2).reduce((p, c) => p + c, ">>>").subscribe(x => console.log(x));
-objBufferCT.bufferTime(500)./*.delayWhen(x => Rx.Observable.interval(x.length * 1000).first()).*/subscribe(x => console.log(x));
+objBufferCT.bufferTime(500)./*delayWhen(x => Rx.Observable.interval(x.length * 1000).first()).*/subscribe(x => console.log(x));
 //
