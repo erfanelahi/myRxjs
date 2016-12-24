@@ -97,3 +97,7 @@ result3.subscribe(x => {
     console.log(x);
     oneClickResult.textContent = (oneClickResult.textContent === '' ? 0 : parseInt(oneClickResult.textContent)) + 1;
 });
+// zip
+var zipObservable1 = Rx.Observable.interval(1000).take(5);
+var zipObservable2 = Rx.Observable.interval(500).take(3);
+Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 })).subscribe(x => console.log(x));
