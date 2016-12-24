@@ -17,7 +17,7 @@ var objJustFlatMap = Rx.Observable.just("https://api.github.com/users")
 var countClick = document.querySelector("#countClick");
 var clickResult = document.querySelector("#countClickResult");
 var clickStream = Rx.Observable.fromEvent(countClick, "click");
-var evenTimeStampStream = clickStream.buffer(clickStream.delay(1000))
+var evenTimeStampStream = clickStream.buffer(() => clickStream.delay(1000))
     .map(event => event.length).do(length => console.log("Click Count : " + length)).filter(length => length === 2);
 evenTimeStampStream.subscribe(event => {
     clickResult.innerHTML = "";
