@@ -89,12 +89,13 @@ clickStream.subscribe(e => {
 //var items1 = Rx.Observable.range(1, 10);
 //var items2 = items1.map(i => i*100 );
 //items1.withLatestFrom(items2, (i1, i2) => i1+i2).subscribe(x => console.log(x));
-// throttle / >>> audit
+// scan / throttle / >>> audit
 var oneClickResult = document.querySelector("#oneClickResult");
 var oneClicks = Rx.Observable.fromEvent(document.querySelector("#oneClick"), 'click');
 var result3 = oneClicks.throttle(3000);
+oneClicks.map(c => 1).scan((acc, i) => acc + i, 0).subscribe(y =>
+    console.log('%c One Clicked : ' + y, 'background: #222; color: #bada55'));
 result3.subscribe(x => {
-    console.log(x);
     oneClickResult.textContent = (oneClickResult.textContent === '' ? 0 : parseInt(oneClickResult.textContent)) + 1;
 });
 // zip
