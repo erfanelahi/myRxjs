@@ -2,7 +2,7 @@
 var arr = ["5", 2, 3, "hi", 7, 8, 9, "world"];
 // of / skip / take / skipLast / takeLast / map / filter / reduce
 var objOf = Rx.Observable.of(...arr).skip(2).take(6).takeLast(5).skipLast(2).map(x => parseInt(x))
-    .filter(x => !isNaN(x)).reduce((x, y) => x + y);
+    .filter(x => !isNaN(x)).reduce((x, y) => x + y, 0);
 // from / first / last
 var objFrom = Rx.Observable.from(arr).first().last().map(x => parseInt(x * x))
     .filter(x => !isNaN(x));
@@ -102,3 +102,7 @@ result3.subscribe(x => {
 var zipObservable1 = Rx.Observable.interval(1000).take(5);
 var zipObservable2 = Rx.Observable.interval(500).take(3);
 Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 })).subscribe(x => console.log(x));
+// bufferCount / bufferTime
+var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, y) => x);
+objBufferCT.bufferCount(2).reduce((p, c) => p + c, ">>>").subscribe(x => console.log(x));
+objBufferCT.bufferTime(500).subscribe(x => console.log(x));
