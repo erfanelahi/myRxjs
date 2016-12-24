@@ -89,7 +89,7 @@ clickStream.subscribe(e => {
 //var items1 = Rx.Observable.range(1, 10);
 //var items2 = items1.map(i => i*100 );
 //items1.withLatestFrom(items2, (i1, i2) => i1+i2).subscribe(x => console.log(x));
-// scan / throttle / >>> audit
+// scan / throttle / *audit
 var oneClickResult = document.querySelector("#oneClickResult");
 var oneClicks = Rx.Observable.fromEvent(document.querySelector("#oneClick"), 'click');
 var result3 = oneClicks.throttle(3000);
@@ -101,9 +101,9 @@ result3.subscribe(x => {
 // zip
 var zipObservable1 = Rx.Observable.interval(1000).take(5);
 var zipObservable2 = Rx.Observable.interval(500).take(3);
-Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 })).subscribe(x => console.log(x));
-// bufferCount / bufferTime / delayWhen
-var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, y) => x);
-objBufferCT.delay(new Date(new Date().getTime() + 1000)).bufferCount(2).reduce((p, c) => p + c, ">>>").subscribe(x => console.log(x));
+Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 })).subscribe(console.log.bind(console));
+// bufferCount / bufferTime / *delayWhen
+var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, _) => x);
+objBufferCT.delay(new Date(new Date().getTime() + 1000)).bufferCount(2).reduce((p, c) => p + c, ">>>").subscribe(console.log.bind(console));
 objBufferCT.bufferTime(500)./*delayWhen(x => Rx.Observable.interval(x.length * 1000).first()).*/subscribe(console.log.bind(console));
 //
