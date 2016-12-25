@@ -111,7 +111,7 @@ var textLabel = document.getElementById("textLabel");
 var textInput = Rx.Observable.fromEvent(document.getElementById("textInput"), "input")
     .map(event => event.target.value).debounce(() => Rx.Observable.interval(1000).first());
 textInput.subscribe(text => textLabel.textContent = text);
-// distinct / distinctUntilChanged / catch / retry / retryWhen
+// distinct / distinctUntilChanged / catch / retry / retryWhen / repeat
 var objDistinct = Rx.Observable.of('E', 'r', 'f', 'a', 'n', 'e', 'e', 'l', 'a', 'h', 'i', Math.random());
 objDistinct.distinct().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: green'));
@@ -127,4 +127,5 @@ var retryWhen = Rx.Observable.interval(1000).first().map(() => Math.random())
     .map(x => { if (x > 0.7) { return x; } else { throw new Error("retryWhen Too Small Number"); } });
 retry.retry(3).subscribe(x => console.log("Next retry >>> " + x), error => console.log(error), () => console.log("retry done!"));
 retryWhen.retryWhen(errorObj => errorObj.delay(3000)).subscribe(x => console.log("Next retryWhen >>> " + x), error => console.log(error), () => console.log("retryWhen done!"));
+objDistinct.repeat(3).reduce((x,y) => x+y,"").subscribe(console.log.bind(console));
 //
