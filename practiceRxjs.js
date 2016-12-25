@@ -111,11 +111,15 @@ var textLabel = document.getElementById("textLabel");
 var textInput = Rx.Observable.fromEvent(document.getElementById("textInput"), "input")
     .map(event => event.target.value).debounce(() => Rx.Observable.interval(1000).first());
 textInput.subscribe(text => textLabel.textContent = text);
-// distinct / distinctUntilChanged
-var objDistinct = Rx.Observable.of('E', 'r', 'f', 'a', 'n', 'e','e', 'l', 'a', 'h', 'i');
+// distinct / distinctUntilChanged / catch
+var objDistinct = Rx.Observable.of('E', 'r', 'f', 'a', 'n', 'e', 'e', 'l', 'a', 'h', 'i', Math.random());
 objDistinct.distinct().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: green'));
-objDistinct.distinct(x => x.toLowerCase()).scan((acc, i) => acc + i, "").last()
+objDistinct.distinct(x => x.toLowerCase()).catch(error => Rx.Observable.empty()).scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: blue'));
 objDistinct.distinctUntilChanged().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: red'));
+var foo = Rx.Observable.interval(500).map(() => Math.random());
+var bar = foo.take(5).map(x => x < 0.5 ? x : new Error("Too Large Number"));
+var result4 = bar.catch((_, outputObs) => outputObs);
+result4.subscribe(x => console.log("Next >>> "+x));
