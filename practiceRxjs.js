@@ -127,5 +127,5 @@ var retryWhen = Rx.Observable.interval(1000).first().map(() => Math.random())
     .map(x => { if (x > 0.7) { return x; } else { throw new Error("retryWhen Too Small Number"); } });
 retry.retry(3).subscribe(x => console.log("Next retry >>> " + x), error => console.log(error), () => console.log("retry done!"));
 retryWhen.retryWhen(errorObj => errorObj.delay(3000)).subscribe(x => console.log("Next retryWhen >>> " + x), error => console.log(error), () => console.log("retryWhen done!"));
-objDistinct.repeat(3).reduce((x,y) => x+y,"").subscribe(console.log.bind(console));
+objDistinct.repeat(3).reduce((x, y) => x + y, "").subscribe(console.log.bind(console));
 //
