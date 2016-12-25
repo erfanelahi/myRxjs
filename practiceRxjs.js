@@ -111,3 +111,9 @@ var textLabel = document.getElementById("textLabel");
 var textInput = Rx.Observable.fromEvent(document.getElementById("textInput"), "input")
     .map(event => event.target.value).debounce(() => Rx.Observable.interval(1000).first());
 textInput.subscribe(text => textLabel.textContent = text);
+// distinct / distinctUntilChanged
+var objDistinct = Rx.Observable.of('E', 'r', 'f', 'a', 'n', 'e','e', 'l', 'a', 'h', 'i');
+objDistinct.distinct().scan((acc, i) => acc + i, "").last()
+    .subscribe(x => console.log('%c' + x, 'color: green'));
+objDistinct.distinctUntilChanged().scan((acc, i) => acc + i, "").last()
+    .subscribe(x => console.log('%c' + x, 'color: red'));
