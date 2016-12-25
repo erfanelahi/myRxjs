@@ -106,4 +106,8 @@ Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 
 var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, _) => x);
 objBufferCT.delay(new Date(new Date().getTime() + 1000)).bufferCount(2).reduce((p, c) => p + c, ">>>").subscribe(console.log.bind(console));
 objBufferCT.bufferTime(500)./*delayWhen(x => Rx.Observable.interval(x.length * 1000).first()).*/subscribe(console.log.bind(console));
-//
+// debounce / *debounceTime 
+var textLabel = document.getElementById("textLabel");
+var textInput = Rx.Observable.fromEvent(document.getElementById("textInput"), "input")
+    .map(event => event.target.value).debounce(() => Rx.Observable.interval(1000).first());
+textInput.subscribe(text => textLabel.textContent = text);
