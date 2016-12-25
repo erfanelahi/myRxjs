@@ -119,9 +119,12 @@ objDistinct.distinct(x => x.toLowerCase()).catch(error => Rx.Observable.empty())
     .subscribe(x => console.log('%c' + x, 'color: blue'));
 objDistinct.distinctUntilChanged().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: red'));
-var result4 = Rx.Observable.interval(1000).first().map(() => Math.random())
-    .do(x => { if (x < 0.7) console.log("Ignore >>> " + x) })
-    .map(x => { if (x > 0.7) { return x; } else { throw new Error("Too Small Number"); } });
-result4.retry(3).subscribe(x => console.log("Next retry >>> " + x), error => console.log(error), () => console.log("retry done!"));
-result4.retryWhen(errorObj => errorObj.delay(3000)).subscribe(x => console.log("Next retryWhen >>> " + x), error => console.log(error), () => console.log("retryWhen done!"));
+var retry = Rx.Observable.interval(1000).first().map(() => Math.random())
+    .do(x => { if (x < 0.7) console.log("Ignore retry >>> " + x) })
+    .map(x => { if (x > 0.7) { return x; } else { throw new Error("retry Too Small Number"); } });
+var retryWhen = Rx.Observable.interval(1000).first().map(() => Math.random())
+    .do(x => { if (x < 0.7) console.log("Ignore retryWhen >>> " + x) })
+    .map(x => { if (x > 0.7) { return x; } else { throw new Error("retryWhen Too Small Number"); } });
+retry.retry(3).subscribe(x => console.log("Next retry >>> " + x), error => console.log(error), () => console.log("retry done!"));
+retryWhen.retryWhen(errorObj => errorObj.delay(3000)).subscribe(x => console.log("Next retryWhen >>> " + x), error => console.log(error), () => console.log("retryWhen done!"));
 //
