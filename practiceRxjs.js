@@ -115,5 +115,7 @@ textInput.subscribe(text => textLabel.textContent = text);
 var objDistinct = Rx.Observable.of('E', 'r', 'f', 'a', 'n', 'e','e', 'l', 'a', 'h', 'i');
 objDistinct.distinct().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: green'));
+objDistinct.distinct(x => x.toLowerCase()).scan((acc, i) => acc + i, "").last()
+    .subscribe(x => console.log('%c' + x, 'color: blue'));
 objDistinct.distinctUntilChanged().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: red'));
