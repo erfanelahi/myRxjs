@@ -119,7 +119,7 @@ objDistinct.distinct(x => x.toLowerCase()).catch(error => Rx.Observable.empty())
     .subscribe(x => console.log('%c' + x, 'color: blue'));
 objDistinct.distinctUntilChanged().scan((acc, i) => acc + i, "").last()
     .subscribe(x => console.log('%c' + x, 'color: red'));
-var foo = Rx.Observable.interval(1000).first().map(() => Math.random());
-var result4 = foo.do(x => { if (x < 0.7) console.log("Ignore >>> " + x) })
+var result4 = Rx.Observable.interval(1000).first().map(() => Math.random())
+    .do(x => { if (x < 0.7) console.log("Ignore >>> " + x) })
     .map(x => { if (x > 0.7) { return x; } else { throw new Error("Too Large Number"); } }).retry(3);
-result4.subscribe(x => console.log("Next >>> " + x), error => console.log(error));
+result4.subscribe(x => console.log("Next >>> " + x), error => console.log(error), () => console.log("done!"));
