@@ -18,7 +18,6 @@ var myFunction = function (a, b, c) {
     return (a + b) / c;
 }
 myCurryFunction(myFunction);
-
 //var abc = function (a) {
 //    return function (b) {
 //        return function (c) {
