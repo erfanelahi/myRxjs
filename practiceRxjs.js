@@ -1,3 +1,31 @@
+/*function customCurry(a, b) {
+    return Function(a, "return "+b+";");
+}
+var myCurryFunction = function (f) {
+    var myCurry;
+    for (var i = 0; i < f.length-1; i++) {
+        if (i === 0) {
+            myCurry = customCurry(["a" + i], Function('c', "return (a"+i+"+a"+(i+1)+") / c;"));
+        }
+        else {
+            myCurry = customCurry(["a" + i], myCurry);
+        }
+    }
+    console.log(myCurry);
+    console.log(myCurry(3)(3)(2));
+}
+var myFunction = function (a, b, c) {
+    return (a + b) / c;
+}
+myCurryFunction(myFunction);
+
+//var abc = function (a) {
+//    return function (b) {
+//        return function (c) {
+//            return (a + b) / c;
+//        }
+//    }
+//} */
 //var Rx = require('rx');
 var arr = ["5", 2, 3, "hi", 7, 8, 9, "world"];
 // of / skip / take / skipLast / takeLast / map / filter / reduce
