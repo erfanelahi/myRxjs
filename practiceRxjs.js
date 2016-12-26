@@ -102,10 +102,14 @@ result3.subscribe(x => {
 var zipObservable1 = Rx.Observable.interval(1000).take(5);
 var zipObservable2 = Rx.Observable.interval(500).take(3);
 Rx.Observable.zip(zipObservable1, zipObservable2, (z1, z2) => ({ Z1: z1, Z2: z2 })).subscribe(console.log.bind(console));
-// bufferCount / bufferTime / *delayWhen
+// bufferCount / bufferTime / *delayWhen / bufferToggle
 var objBufferCT = Rx.Observable.of('E', 'r', 'f', 'a', 'n').zip(Rx.Observable.interval(300).take(5), (x, _) => x);
 objBufferCT.delay(new Date(new Date().getTime() + 1000)).bufferCount(2, 1).reduce((p, c) => p + c, ">>>").subscribe(console.log.bind(console));
 objBufferCT.bufferTime(500, 500, 2)./*delayWhen(x => Rx.Observable.interval(x.length * 1000).first()).*/subscribe(console.log.bind(console));
+/*var bufferToggle = objBufferCT.bufferToggle(Rx.Observable.interval(1000), i =>
+  i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
+);
+bufferToggle.subscribe(x => console.log('%c' + x, 'background: #blue; color: white'));*/
 // debounce / *debounceTime 
 var textLabel = document.getElementById("textLabel");
 var textInput = Rx.Observable.fromEvent(document.getElementById("textInput"), "input")
