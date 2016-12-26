@@ -159,4 +159,9 @@ var retryWhen = Rx.Observable.interval(1000).first().map(() => Math.random())
 retry.retry(3).subscribe(x => console.log("Next retry >>> " + x), error => console.log(error), () => console.log("retry done!"));
 retryWhen.retryWhen(errorObj => errorObj.delay(3000)).subscribe(x => console.log("Next retryWhen >>> " + x), error => console.log(error), () => console.log("retryWhen done!"));
 objDistinct.repeat(3).reduce((x, y) => x + y, "").subscribe(console.log.bind(console));
-//
+// flatMapLatest / takeUntil
+var dotSource = Rx.Observable.interval(100).map(() => '. ');
+var display = document.querySelector('#display');
+var toggle = document.querySelector('#toggle');
+var checked = Rx.Observable.fromEvent(toggle, 'change').map(e => e.target.checked);
+checked.filter(x => x === true).flatMapLatest(() => dotSource.takeUntil(checked)).subscribe(x => display.innerHTML += x);
