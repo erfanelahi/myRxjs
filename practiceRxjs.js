@@ -165,3 +165,11 @@ var display = document.querySelector('#display');
 var toggle = document.querySelector('#toggle');
 var checked = Rx.Observable.fromEvent(toggle, 'change').map(e => e.target.checked);
 checked.filter(x => x === true).flatMapLatest(() => dotSource.takeUntil(checked)).subscribe(x => display.innerHTML += x);
+// 
+var recordedVideo = Rx.Observable.interval(1000).take(5);
+recordedVideo.subscribe(x => console.log("%c Video 1 :" + x, 'color: black'));
+setTimeout(() => recordedVideo.subscribe(x => console.log("%c Video 2 :" + x, 'color: black')), 3000);
+// publish / refCount
+var liveVideo = Rx.Observable.interval(1000).take(5).publish().refCount();
+liveVideo.subscribe(x => console.log("%c Live 1 :" + x, 'color: green'));
+setTimeout(() => liveVideo.subscribe(x => console.log("%c Live 2 :" + x, 'color: red')), 3000);
