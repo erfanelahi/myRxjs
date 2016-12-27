@@ -168,7 +168,7 @@ checked.filter(x => x === true).flatMapLatest(() => dotSource.takeUntil(checked)
 // 
 var recordedVideo = Rx.Observable.interval(1000).take(5);
 recordedVideo.subscribe(x => console.log("%c Recorded 1 :" + x, 'color: black'));
-setTimeout(() => recordedVideo.subscribe(x => console.log("%c Recorded 2 :" + x, 'color: black')), 3000);
+setTimeout(() => recordedVideo.subscribe(x => console.log("%c Recorded 2 :" + x, 'color: orange')), 3000);
 // publish / refCount / *connect
 var liveVideo = Rx.Observable.interval(1000).take(5).publish().refCount();
 liveVideo.subscribe(x => console.log("%c Live 1 :" + x, 'color: green'));
