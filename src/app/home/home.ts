@@ -10,10 +10,12 @@ import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState } from '../counter';
 })
 export class Home {
   counter: Observable<number>;
+  power: Observable<number>;
   homeValue: Observable<string>;
 
   constructor(private store: Store<AppState>) {
     this.counter = store.select<number>('count');
+    this.power = this.counter.map((value) => Math.pow(2, value));
     this.homeValue = store.select<string>('data');
   }
 
