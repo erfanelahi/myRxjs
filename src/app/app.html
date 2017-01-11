@@ -2,23 +2,21 @@
   Angular 2 Seed
 </h3>
 <nav>
-	<a [routerLink]="['/']">
+  <a [routerLink]="['/']">
     Home
-  </a>
-  |
-	<a [routerLink]="['/about']">
+  </a> |
+  <a [routerLink]="['/about']">
     About
-  </a>
-  |
-	<a [routerLink]="['/github', 'angular']">
+  </a> |
+  <a [routerLink]="['/github', 'angular']">
     Github Repos
   </a>
 </nav>
 
 <main>
-	<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
-
+<ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>
 
 <footer>
   © 2016

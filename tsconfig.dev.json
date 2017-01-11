@@ -20,6 +20,7 @@
   },
   "exclude": [
     "node_modules",
+    "myRxjs",
     "src/**/*.e2e.ts",
     "src/**/*.spec.ts"
   ],

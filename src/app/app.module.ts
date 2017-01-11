@@ -13,10 +13,18 @@ import { RepoList } from './github/repo-list/repo-list';
 import { RepoDetail } from './github/repo-detail/repo-detail';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './counter';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent, About, RepoBrowser, RepoList, RepoDetail, Home],
-  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig), StoreModule.provideStore(counterReducer)],
+  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig), StoreModule.provideStore(counterReducer), StoreLogMonitorModule,
+    StoreDevtoolsModule.instrumentStore({
+      monitor: useLogMonitor({
+        visible: true,
+        position: 'right'
+      })
+    })],
   providers: [Github],
   bootstrap: [AppComponent]
 })
