@@ -1,0 +1,11 @@
+<h3>Home Component</h3>
+<p>Welcome to Angular -Erfan</p>
+<input type="text" > <br/> <br/>
+<input type="text" #lv [value]="homeValue | async" (keyup)="setHomeValue(lv.value)">
+<div>Current Value: {{ homeValue | async }}</div>
+<br/>
+<button (click)="increment()">Increment</button>
+<div>Current Count: {{ counter | async }}</div>
+<button (click)="decrement()">Decrement</button>
+<button (click)="reset()">Reset Counter</button>
+<br/>

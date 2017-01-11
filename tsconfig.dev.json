@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "pretty": true,
+    "rootDir": "./src",
+    "types": [
+      "core-js",
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.e2e.ts",
+    "src/**/*.spec.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true,
+    "forkChecker": true,
+    "useCache": true
+  }
+}

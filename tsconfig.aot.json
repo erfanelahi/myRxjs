@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "noEmitHelpers": true,
+    "rootDir": "./src",
+    "outDir": "output",
+    "types": [
+      "core-js",
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "src/compiled",
+    "src/**/*.e2e.ts",
+    "src/**/*.spec.ts",
+    "src/main.browser.aot.ts",
+    "src/vendor.browser.ts",
+    "output",
+    "dist"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  },
+  "angularCompilerOptions": {
+    "genDir": "src/compiled",
+    "skipMetadataEmit": true
+  }
+}
