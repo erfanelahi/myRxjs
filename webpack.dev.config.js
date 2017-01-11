@@ -52,7 +52,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 loaders: [
-                    'awesome-typescript-loader?tsconfig=tsconfig.dev.json',
+                    'awesome-typescript-loader',
                     'angular2-template-loader',
                     'angular2-router-loader'
                 ],
