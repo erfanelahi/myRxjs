@@ -29,7 +29,9 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 data: action.payload
             };
         case RESET:
-            return initialState;
+            return  Object.assign({}, initialState, {
+                myTest : "My Value"
+            });
         default:
             return state;
     }
