@@ -12,11 +12,13 @@ export class Home {
   counter: Observable<number>;
   power: Observable<number>;
   homeValue: Observable<string>;
+  homeValueInput: string;
 
   constructor(private store: Store<AppState>) {
     this.counter = store.select<number>('count');
     this.power = this.counter.map((value) => Math.pow(2, value));
     this.homeValue = store.select<string>('data');
+    this.homeValue.subscribe(value => this.homeValueInput = value);
   }
 
   increment() {
