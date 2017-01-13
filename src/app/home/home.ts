@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState } from '../counter';
+import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState } from '../reducer';
 
 @Component({
   selector: 'home',

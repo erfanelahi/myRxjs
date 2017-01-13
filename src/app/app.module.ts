@@ -12,7 +12,7 @@ import { RepoBrowser } from './github/repo-browser/repo-browser';
 import { RepoList } from './github/repo-list/repo-list';
 import { RepoDetail } from './github/repo-detail/repo-detail';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './counter';
+import { counterReducer } from './reducer';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
