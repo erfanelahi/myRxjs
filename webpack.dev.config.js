@@ -42,7 +42,7 @@ module.exports = {
             template: './src/index.html'
         }),
         new ForkCheckerPlugin(),
-        new OpenBrowserPlugin({ url: 'http://localhost:3000/', browser: 'chrome' })
+        new OpenBrowserPlugin({ url: 'http://localhost:8080/', browser: 'chrome' })
     ],
     module: {
         preLoaders: [
@@ -70,7 +70,7 @@ module.exports = {
     debug: true,
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
-        port: 3000,
+        port: 8080,
         historyApiFallback: true,
         hot: true,
         inline: true,
