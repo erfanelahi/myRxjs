@@ -8,7 +8,7 @@ import { Component, ViewChild } from '@angular/core';
 export class LazyComponent {
   @ViewChild('formRef') formRef;
   ngAfterViewInit() {
-    //this.formRef.valueChanges.subscribe(v => console.table(v));
+    this.formRef.valueChanges.subscribe(v => console.table(v));
   }
   onSubmit(formValues) {
     console.table(formValues);
