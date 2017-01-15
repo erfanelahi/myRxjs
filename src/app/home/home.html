@@ -11,6 +11,8 @@
         <li>{{item.name}}</li>
         <li>{{item.description}}</li>
     </div>
+    <input type="button" value="Delete" (click)="deleteData(item)">
+    <br/>
 </ul>
 <br/>
 <input type="button" value="Show Data" (click)="getData()">

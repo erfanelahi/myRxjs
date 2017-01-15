@@ -6,6 +6,7 @@ export const HOMEVALUE = 'HOMEVALUE';
 export const GET_ITEMS = "GET_ITEMS";
 export const CREATE_ITEM = "CREATE_ITEM";
 export const UPDATE_ITEM = "UPDATE_ITEM";
+export const DELETE_ITEM = "DELETE_ITEM";
 export interface Item {
     id: number;
     name: string;
@@ -62,6 +63,14 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 return item.id === action.payload.id ? Object.assign({}, item, action.payload) : item;
             });
             return state;
+        case DELETE_ITEM:
+            return {
+                count: state.count,
+                data: state.data,
+                items: state.items.filter(item => {
+                    return item.id !== action.payload.id;
+                })
+            }
         default:
             return state;
     }

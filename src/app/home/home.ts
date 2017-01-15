@@ -71,5 +71,10 @@ export class Home implements AfterViewInit {
       this.itemAdd = "";
     }
   }
+  deleteData(item: Item) {
+    this.itemsService.deleteItem(item);
+    this.selectedItem = null;
+    this.itemAdd = "";
+  }
 }
 
