@@ -1,6 +1,33 @@
-<header>
-  <h1>
-    This module is being loaded lazily.
-  </h1>
-  <img src="assets/logo.png">
-</header>
+<h3>Lazy Component</h3>
+<form #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
+	<fieldset ngModelGroup="textGroup">
+		<input required minlength="5" type="text" name="username" [(ngModel)]="username" #usernameRef="ngModel" />
+		<p>valid : {{usernameRef.valid}}</p>
+		<p>{{usernameRef.errors | json}}</p>
+		<div *ngIf="usernameRef.errors?.required">This field is required.</div>
+		<div *ngIf="usernameRef.errors?.minlength">
+			This field must be longer than {{usernameRef.errors?.minlength.requiredLength}} characters. You only typed {{usernameRef.errors?.minlength.actualLength}}
+		</div>
+		<input required maxlength="5" type="text" name="address" [(ngModel)]="address" #addressRef="ngModel" />
+		<p>pristine : {{addressRef.pristine}}</p>
+		<p>dirty : {{addressRef.dirty}}</p>
+		<p>untouched : {{addressRef.untouched}}</p>
+		<p>touched : {{addressRef.touched}}</p>
+	</fieldset>
+	<fieldset ngModelGroup="passwordGroup">
+		<input required type="password" name="password" ngModel />
+	</fieldset>
+	<fieldset ngModelGroup="radioSelectGroup">
+		<div *ngFor="let location of locations">
+			<input type="radio" [id]="location" name="radioLocation" [ngModel]="locations[0]" [value]="location" />
+			<label [attr.for]="location">{{location}}</label>
+		</div>
+		<select name="selectLocation" [ngModel]="locations[1]">
+            <option *ngFor="let location of locations" [value]="location">
+                {{location}}
+            </option>
+        </select>
+	</fieldset>
+	<button type="submit">Submit</button>
+</form>
+{{formRef.valid}} {{formRef.value | json}}

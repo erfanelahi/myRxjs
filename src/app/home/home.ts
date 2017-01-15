@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+
 import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item } from '../reducer';
 import {ItemsService} from '../service';
+
 
 @Component({
   selector: 'home',
   styleUrls: ['./home.css'],
-  templateUrl: './home.html',
-  providers: [ItemsService],
+  templateUrl: './home.html'
 })
 export class Home {
   counter: Observable<number>;

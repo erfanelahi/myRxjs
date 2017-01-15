@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './reducer';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {ItemsService} from './service';
 
 @NgModule({
   declarations: [AppComponent, About, RepoBrowser, RepoList, RepoDetail, Home],
@@ -25,7 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         position: 'right'
       })
     })],
-  providers: [Github],
+  providers: [Github, ItemsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
