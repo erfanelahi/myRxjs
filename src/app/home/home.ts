@@ -38,7 +38,11 @@ export class Home {
     this.store.dispatch({ type: RESET });
   }
   setHomeValue(value) {
-    this.store.dispatch({ type: HOMEVALUE, payload: value });
+    let currentValue;
+    this.store.select<string>('data').subscribe(value => currentValue = value);
+    if (currentValue !== value) {
+      this.store.dispatch({ type: HOMEVALUE, payload: value });
+    }
   }
   getData(){
       this.itemsService.loadItems();
