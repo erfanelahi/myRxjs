@@ -19,6 +19,7 @@ export class Home implements AfterViewInit {
   items: Observable<Array<Item>>;
   itemAdd: string = string.Empty;
   addItems: string = string.Empty;
+  selectedItem: Item = null;
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService) {
     this.counter = store.select<number>('count');
@@ -27,7 +28,7 @@ export class Home implements AfterViewInit {
     this.homeValue.subscribe(value => this.homeValueInput = value);
     this.items = itemsService.items;
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.itemsService.loadItems();
   }
   increment() {
@@ -54,7 +55,19 @@ export class Home implements AfterViewInit {
   addData(value) {
     if (value.trim().length !== 0) {
       //this.addItems += `<li>${value.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;")}</li>`;
-      this.itemsService.createItem({id: new Date().getMilliseconds(), name: value.trim(), description: "This is a default description"});
+      this.itemsService.createItem({ id: new Date().getMilliseconds(), name: value.trim(), description: "This is a default description" });
+      this.itemAdd = "";
+    }
+  }
+  getSelectedItem(item: Item) {
+    this.selectedItem = item;
+    this.itemAdd = item.name;
+  }
+  updateData() {
+    if (this.selectedItem !== null) {
+      this.selectedItem.name = this.itemAdd;
+      this.itemsService.updateItem(this.selectedItem);
+      this.selectedItem = null;
       this.itemAdd = "";
     }
   }

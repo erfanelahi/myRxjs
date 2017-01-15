@@ -1,13 +1,16 @@
 <h3>Home Component</h3>
 <p>Welcome to Angular -Erfan</p>
 <input type="text" placeholder="No State" [(ngModel)]="itemAdd">
-<input type="button" value="Add" (click)="addData(itemAdd)">
+<input type="button" value="Add" *ngIf="selectedItem===null" (click)="addData(itemAdd)">
+<input type="button" value="Update" *ngIf="selectedItem!==null" (click)="updateData()">
 <!--<ul [innerHTML]="addItems"></ul>
 <hr/>-->
 <ul *ngFor="let item of items | async">
-    <li>{{item.id}}</li>
-    <li>{{item.name}}</li>
-    <li>{{item.description}}</li>
+    <div (click)="getSelectedItem(item)" style="cursor: pointer">
+        <li>{{item.id}}</li>
+        <li>{{item.name}}</li>
+        <li>{{item.description}}</li>
+    </div>
 </ul>
 <br/>
 <input type="button" value="Show Data" (click)="getData()">

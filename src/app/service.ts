@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
-import {AppState, Item, GET_ITEMS, CREATE_ITEM} from './reducer';
+import {AppState, Item, GET_ITEMS, CREATE_ITEM, UPDATE_ITEM} from './reducer';
 
 const BASE_URL = 'http://localhost:3000/items/';
 const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
@@ -34,10 +34,10 @@ export class ItemsService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-//   updateItem(item: Item) {
-//     this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-//       .subscribe(action => this.store.dispatch({ type: 'UPDATE_ITEM', payload: item }));
-//   }
+  updateItem(item: Item) {
+    this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
+      .subscribe(action => this.store.dispatch({ type: UPDATE_ITEM, payload: item }));
+  }
 
 //   deleteItem(item: Item) {
 //     this.http.delete(`${BASE_URL}${item.id}`)
