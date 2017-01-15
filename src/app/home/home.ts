@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item } from '../reducer';
-import {ItemsService} from '../service';
-
+import { ItemsService } from '../service';
+const string = { Empty: "" };
 
 @Component({
   selector: 'home',
   styleUrls: ['./home.css'],
   templateUrl: './home.html'
 })
-export class Home {
+export class Home implements AfterViewInit {
   counter: Observable<number>;
   power: Observable<number>;
   homeValue: Observable<string>;
   homeValueInput: string;
   items: Observable<Array<Item>>;
+  itemAdd: string = string.Empty;
+  addItems: string = string.Empty;
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService) {
     this.counter = store.select<number>('count');
@@ -25,7 +27,9 @@ export class Home {
     this.homeValue.subscribe(value => this.homeValueInput = value);
     this.items = itemsService.items;
   }
-
+  ngAfterViewInit(){
+    this.itemsService.loadItems();
+  }
   increment() {
     this.store.dispatch({ type: INCREMENT });
   }
@@ -44,8 +48,15 @@ export class Home {
       this.store.dispatch({ type: HOMEVALUE, payload: value });
     }
   }
-  getData(){
-      this.itemsService.loadItems();
+  getData() {
+    this.itemsService.loadItems();
+  }
+  addData(value) {
+    if (value.trim().length !== 0) {
+      //this.addItems += `<li>${value.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;")}</li>`;
+      this.itemsService.createItem({id: new Date().getMilliseconds(), name: value.trim(), description: "This is a default description"});
+      this.itemAdd = "";
+    }
   }
 }
 

@@ -1,16 +1,17 @@
 <h3>Home Component</h3>
 <p>Welcome to Angular -Erfan</p>
-<input type="text" placeholder="No State!!!"> 
+<input type="text" placeholder="No State" [(ngModel)]="itemAdd">
+<input type="button" value="Add" (click)="addData(itemAdd)">
+<!--<ul [innerHTML]="addItems"></ul>
+<hr/>-->
+<ul *ngFor="let item of items | async">
+    <li>{{item.id}}</li>
+    <li>{{item.name}}</li>
+    <li>{{item.description}}</li>
+</ul>
 <br/>
 <input type="button" value="Show Data" (click)="getData()">
-<div>
-    <ul *ngFor="let item of items | async">
-        <li>{{item.id}}</li>
-        <li>{{item.name}}</li>
-        <li>{{item.description}}</li>
-    </ul>
-</div>
-<br/>
+<br/><br/>
 <input type="text" [(ngModel)]="homeValueInput" (keyup)="setHomeValue(homeValueInput)">
 <div>Current Value: {{ homeValueInput }}</div><br/>
 <input type="text" #lv [value]="homeValue | async" (keyup)="setHomeValue(lv.value)">

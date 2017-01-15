@@ -4,6 +4,7 @@ export const DECREMENT = 'DECREMENT';
 export const RESET = 'RESET';
 export const HOMEVALUE = 'HOMEVALUE';
 export const GET_ITEMS = "GET_ITEMS";
+export const CREATE_ITEM = "CREATE_ITEM";
 export interface Item {
     id: number;
     name: string;
@@ -48,6 +49,12 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 count: state.count,
                 data: state.data,
                 items: action.payload
+            };
+        case CREATE_ITEM:
+            return {
+                count: state.count,
+                data: state.data,
+                items: [...state.items, action.payload]
             };
         default:
             return state;
