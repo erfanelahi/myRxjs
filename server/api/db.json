@@ -2,8 +2,8 @@
   "items": [
     {
       "id": 2,
-      "name": "Item 22",
-      "description": "This is a description"
+      "name": "Final",
+      "description": "This is a default description"
     },
     {
       "id": 3,

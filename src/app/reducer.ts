@@ -43,9 +43,7 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 items: state.items
             };
         case RESET:
-            return Object.assign({}, initialState, {
-                myTest: "My Value"
-            });
+            return initialState;
         case GET_ITEMS:
             return {
                 count: state.count,
@@ -63,7 +61,7 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 count: state.count,
                 data: state.data,
                 items: state.items.map(item => {
-                    return item.id === action.payload.id ? Object.assign({}, item, action.payload) : item;
+                    return item.id === action.payload.id ? Object.assign({}, action.payload) : item;
                 })
             };
         case DELETE_ITEM:

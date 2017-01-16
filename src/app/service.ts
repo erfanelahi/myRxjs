@@ -34,9 +34,7 @@ export class ItemsService {
 
   updateItem(item: Item) {
     this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-      .subscribe(action => {
-        this.store.dispatch({ type: UPDATE_ITEM, payload: item });
-      });
+      .subscribe(action => this.store.dispatch({ type: UPDATE_ITEM, payload: item }));
   }
 
   deleteItem(item: Item) {
