@@ -1,5 +1,5 @@
 <h3>Home Component</h3>
-<p>Welcome to Angular -Erfan</p>
+<p>{{numberOfTicks}}</p>
 <input type="text" placeholder="No State" [(ngModel)]="itemAdd">
 <input type="button" value="Add" *ngIf="selectedItem===null" (click)="addData(itemAdd)">
 <input type="button" value="Update" *ngIf="selectedItem!==null" (click)="updateData()">

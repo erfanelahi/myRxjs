@@ -2,17 +2,17 @@
   "items": [
     {
       "id": 2,
-      "name": "Item 2",
+      "name": "Item 22",
       "description": "This is a description"
     },
     {
       "id": 3,
-      "name": "Item 3",
+      "name": "Item 33 ",
       "description": "This is a lovely item"
     },
     {
-      "id": 890,
-      "name": "go",
+      "id": 83,
+      "name": "New Item",
       "description": "This is a default description"
     }
   ],

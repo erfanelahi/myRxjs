@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -10,6 +10,7 @@ const string = { Empty: "" };
   selector: 'home',
   styleUrls: ['./home.css'],
   templateUrl: './home.html'
+  , changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Home implements AfterViewInit {
   counter: Observable<number>;
@@ -20,13 +21,19 @@ export class Home implements AfterViewInit {
   itemAdd: string = string.Empty;
   addItems: string = string.Empty;
   selectedItem: Item = null;
+  numberOfTicks: number = 0;
 
-  constructor(private store: Store<AppState>, private itemsService: ItemsService) {
-    this.counter = store.select<number>('count');
+  constructor(private store: Store<AppState>, private itemsService: ItemsService, private ref: ChangeDetectorRef) {
+    this.counter = this.store.select<number>('count');
     this.power = this.counter.map((value) => Math.pow(2, value));
-    this.homeValue = store.select<string>('data');
+    this.homeValue = this.store.select<string>('data');
     this.homeValue.subscribe(value => this.homeValueInput = value);
-    this.items = itemsService.items;
+    this.items = this.itemsService.items;
+    setInterval(() => {
+      this.numberOfTicks++;
+      // the following is required, otherwise the view will not be updated
+      // this.ref.markForCheck();
+    }, 1000);
   }
   ngAfterViewInit() {
     this.itemsService.loadItems();
