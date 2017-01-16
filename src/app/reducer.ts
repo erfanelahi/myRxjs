@@ -59,10 +59,13 @@ export const counterReducer: ActionReducer<AppState> = (state: AppState = initia
                 items: [...state.items, action.payload]
             };
         case UPDATE_ITEM:
-            state.items.map(item => {
-                return item.id === action.payload.id ? Object.assign({}, item, action.payload) : item;
-            });
-            return state;
+            return {
+                count: state.count,
+                data: state.data,
+                items: state.items.map(item => {
+                    return item.id === action.payload.id ? Object.assign({}, item, action.payload) : item;
+                })
+            };
         case DELETE_ITEM:
             return {
                 count: state.count,

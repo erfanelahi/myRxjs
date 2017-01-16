@@ -28,7 +28,7 @@ export class Home implements AfterViewInit {
     this.power = this.counter.map((value) => Math.pow(2, value));
     this.homeValue = this.store.select<string>('data');
     this.homeValue.subscribe(value => this.homeValueInput = value);
-    this.items = this.itemsService.items;
+    this.items = this.store.select<Item[]>('items');
     setInterval(() => {
       this.numberOfTicks++;
       // the following is required, otherwise the view will not be updated
