@@ -72,7 +72,7 @@ export class Home implements AfterViewInit {
   }
   updateData() {
     if (this.selectedItem !== null && this.itemAdd.trim() !== "") {
-      this.itemsService.updateItem({ id: this.selectedItem.id, name: this.itemAdd.trim(), description: this.selectedItem.description });
+      this.itemsService.updateItem(Object.assign({}, this.selectedItem, { name: this.itemAdd.trim() }));
       this.selectedItem = null;
       this.itemAdd = "";
     }
