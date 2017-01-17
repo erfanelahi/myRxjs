@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } 
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item } from '../reducer';
+import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item, UPDATE_ITEM } from '../reducer';
 import { ItemsService } from '../service';
 const string = { Empty: "" };
 
@@ -22,6 +22,7 @@ export class Home implements AfterViewInit {
   addItems: string = string.Empty;
   selectedItem: Item = null;
   numberOfTicks: number = 0;
+  message: string = "";
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService, private ref: ChangeDetectorRef) {
     this.counter = this.store.select<number>('count');
@@ -71,8 +72,12 @@ export class Home implements AfterViewInit {
     this.itemAdd = item.name;
   }
   updateData() {
-    if (this.selectedItem !== null && this.itemAdd.trim() !== "") {
-      this.itemsService.updateItem(Object.assign({}, this.selectedItem, { name: this.itemAdd.trim() }));
+    if (this.selectedItem !== null && this.itemAdd.trim().length !== 0) {
+      let item = Object.assign({}, this.selectedItem, { name: this.itemAdd.trim() });
+      let updateItemObservable = this.itemsService.updateItem(item);
+      updateItemObservable.subscribe(action => this.store.dispatch({ type: UPDATE_ITEM, payload: item }),
+        error => this.message = error
+      );
       this.selectedItem = null;
       this.itemAdd = "";
     }

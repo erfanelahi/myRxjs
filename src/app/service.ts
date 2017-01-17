@@ -1,8 +1,9 @@
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { AppState, Item, GET_ITEMS, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from './reducer';
 
 const BASE_URL = 'http://localhost:3000/items/';
@@ -32,9 +33,10 @@ export class ItemsService {
       .subscribe(action => this.store.dispatch(action));
   }
 
-  updateItem(item: Item) {
-    this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-      .subscribe(action => this.store.dispatch({ type: UPDATE_ITEM, payload: item }));
+  updateItem(item: Item): Observable<Response> {
+    return this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
+      // .map((res: Response) => res.json())
+      // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   deleteItem(item: Item) {
