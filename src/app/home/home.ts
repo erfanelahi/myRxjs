@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item, UPDATE_ITEM } from '../reducer';
 import { ItemsService } from '../service';
+import { Response } from '@angular/http';
 const string = { Empty: "" };
 
 @Component({
@@ -75,8 +76,14 @@ export class Home implements AfterViewInit {
     if (this.selectedItem !== null && this.itemAdd.trim().length !== 0) {
       let item = Object.assign({}, this.selectedItem, { name: this.itemAdd.trim() });
       let updateItemObservable = this.itemsService.updateItem(item);
-      updateItemObservable.subscribe(action => this.store.dispatch({ type: UPDATE_ITEM, payload: item }),
-        error => this.message = error
+      updateItemObservable.subscribe(response => {
+        if (response.ok === true) {
+          this.store.dispatch({ type: UPDATE_ITEM, payload: item });
+        } else {
+          this.message = "Something went wrong. Unable to update.";
+        }
+      },
+        error => { this.message = error; }
       );
       this.selectedItem = null;
       this.itemAdd = "";
