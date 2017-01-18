@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { INCREMENT, DECREMENT, RESET, HOMEVALUE, AppState, Item, UPDATE_ITEM } from '../reducer';
@@ -24,9 +25,9 @@ export class Home implements AfterViewInit, OnDestroy {
   selectedItem: Item = null;
   numberOfTicks: number = 0;
   message: string = string.Empty;
-  homeValueSubscription: any;
-  currentValueSubscription: any;
-  updateItemObservableSubscription: any;
+  homeValueSubscription: Subscription;
+  currentValueSubscription: Subscription;
+  updateItemObservableSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService, private ref: ChangeDetectorRef) {
     this.counter = this.store.select<number>('count');
@@ -68,7 +69,7 @@ export class Home implements AfterViewInit, OnDestroy {
     if (value.trim().length !== 0) {
       //this.addItems += `<li>${value.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;")}</li>`;
       this.itemsService.createItem({ id: new Date().getMilliseconds(), name: value.trim(), description: "This is a default description" });
-      this.itemAdd = "";
+      this.itemAdd = string.Empty;
     }
   }
   getSelectedItem(item: Item) {
@@ -98,15 +99,9 @@ export class Home implements AfterViewInit, OnDestroy {
     this.itemAdd = string.Empty;
   }
   ngOnDestroy() {
-    if (this.homeValueSubscription) {
-      this.homeValueSubscription.unsubscribe();
-    }
-    if (this.currentValueSubscription) {
-      this.currentValueSubscription.unsubscribe();
-    }
-    if (this.updateItemObservableSubscription) {
-      this.updateItemObservableSubscription.unsubscribe();
-    }
+    this.homeValueSubscription && this.homeValueSubscription.unsubscribe();
+    this.currentValueSubscription && this.currentValueSubscription.unsubscribe();
+    this.updateItemObservableSubscription && this.updateItemObservableSubscription.unsubscribe();
   }
 }
 
