@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -13,7 +13,7 @@ const string = { Empty: "" };
   templateUrl: './home.html'
   , changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Home implements AfterViewInit {
+export class Home implements AfterViewInit, OnDestroy {
   counter: Observable<number>;
   power: Observable<number>;
   homeValue: Observable<string>;
@@ -23,13 +23,16 @@ export class Home implements AfterViewInit {
   addItems: string = string.Empty;
   selectedItem: Item = null;
   numberOfTicks: number = 0;
-  message: string = "";
+  message: string = string.Empty;
+  homeValueSubscription: any;
+  currentValueSubscription: any;
+  updateItemObservableSubscription: any;
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService, private ref: ChangeDetectorRef) {
     this.counter = this.store.select<number>('count');
     this.power = this.counter.map((value) => Math.pow(2, value));
     this.homeValue = this.store.select<string>('data');
-    this.homeValue.subscribe(value => this.homeValueInput = value);
+    this.homeValueSubscription = this.homeValue.subscribe(value => this.homeValueInput = value);
     this.items = this.store.select<Item[]>('items');
     setInterval(() => {
       this.numberOfTicks++;
@@ -53,7 +56,7 @@ export class Home implements AfterViewInit {
   }
   setHomeValue(value) {
     let currentValue;
-    this.store.select<string>('data').subscribe(value => currentValue = value);
+    this.currentValueSubscription = this.store.select<string>('data').subscribe(value => currentValue = value);
     if (currentValue !== value) {
       this.store.dispatch({ type: HOMEVALUE, payload: value });
     }
@@ -76,7 +79,7 @@ export class Home implements AfterViewInit {
     if (this.selectedItem !== null && this.itemAdd.trim().length !== 0) {
       let item = Object.assign({}, this.selectedItem, { name: this.itemAdd.trim() });
       let updateItemObservable = this.itemsService.updateItem(item);
-      updateItemObservable.subscribe(response => {
+      this.updateItemObservableSubscription = updateItemObservable.subscribe(response => {
         if (response.ok === true) {
           this.store.dispatch({ type: UPDATE_ITEM, payload: item });
         } else {
@@ -86,13 +89,24 @@ export class Home implements AfterViewInit {
         error => { this.message = error; this.ref.markForCheck(); }
       );
       this.selectedItem = null;
-      this.itemAdd = "";
+      this.itemAdd = string.Empty;
     }
   }
   deleteData(item: Item) {
     this.itemsService.deleteItem(item);
     this.selectedItem = null;
-    this.itemAdd = "";
+    this.itemAdd = string.Empty;
+  }
+  ngOnDestroy() {
+    if (this.homeValueSubscription) {
+      this.homeValueSubscription.unsubscribe();
+    }
+    if (this.currentValueSubscription) {
+      this.currentValueSubscription.unsubscribe();
+    }
+    if (this.updateItemObservableSubscription) {
+      this.updateItemObservableSubscription.unsubscribe();
+    }
   }
 }
 
