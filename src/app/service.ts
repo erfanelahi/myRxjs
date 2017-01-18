@@ -35,7 +35,7 @@ export class ItemsService {
 
   updateItem(item: Item): Observable<Response> {
     return this.http.put(`${BASE_URL}${item.id}`, JSON.stringify(item), HEADER)
-      .catch((error: any) => { throw new Error(error); });
+      .catch((error: any) => { throw error.statusText; });
   }
 
   deleteItem(item: Item) {

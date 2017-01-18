@@ -83,7 +83,7 @@ export class Home implements AfterViewInit {
           this.message = "Something went wrong. Unable to update.";
         }
       },
-        error => { this.message = JSON.stringify(error); }
+        error => { this.message = error; this.ref.markForCheck(); }
       );
       this.selectedItem = null;
       this.itemAdd = "";
