@@ -31,3 +31,7 @@
 	<button type="submit">Submit</button>
 </form>
 {{formRef.valid}} {{formRef.value | json}}
+<br/>
+<p>-----------------------------------------------------------------------------</p>
+<input type="text" #lvLazy [value]="homeValueLazy | async" (keyup)="setHomeValueLazy(lvLazy.value)">
+<div>Current Value: {{ homeValueLazy | async }}</div>
