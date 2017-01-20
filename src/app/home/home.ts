@@ -28,6 +28,7 @@ export class Home implements AfterViewInit, OnDestroy {
   homeValueSubscription: Subscription;
   currentValueSubscription: Subscription;
   updateItemObservableSubscription: Subscription;
+  currentItemsSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private itemsService: ItemsService, private ref: ChangeDetectorRef) {
     this.counter = this.store.select<number>('count');
@@ -42,7 +43,11 @@ export class Home implements AfterViewInit, OnDestroy {
     }, 1000);
   }
   ngAfterViewInit() {
-    this.itemsService.loadItems();
+    let currentItems: Item[];
+    this.currentItemsSubscription = this.store.select<Item[]>('items').subscribe(value => currentItems = value);
+    if (currentItems.length === 0) {
+      this.itemsService.loadItems();
+    }
   }
   increment() {
     this.store.dispatch({ type: INCREMENT });
@@ -102,6 +107,7 @@ export class Home implements AfterViewInit, OnDestroy {
     this.homeValueSubscription && this.homeValueSubscription.unsubscribe();
     this.currentValueSubscription && this.currentValueSubscription.unsubscribe();
     this.updateItemObservableSubscription && this.updateItemObservableSubscription.unsubscribe();
+    this.currentItemsSubscription && this.currentItemsSubscription.unsubscribe();
   }
 }
 
